@@ -1,6 +1,7 @@
 import re
 import requests
 import sys
+import json
 import unicodedata
 from bs4 import BeautifulSoup
 
@@ -8,10 +9,10 @@ prepWords = [
   "cubed", "diced", "melted", "deveined", "boned", "peeled",
   "washed", "minced", "shredded", "chopped", "mashed", "seeded",
   "drained", "cut into chunks", "sliced", "prepared", "coarsely", "finely",
-  "freshly", "crushed", "medium", "large", "small"
+  "freshly", "crushed", "medium", "large", "small", "rinsed", "undrained", "optional", "(optional)"
 ]
 extraWords = [
-  "or to taste", "to taste", "for frying", "plus more as needed", "as needed", "optional", "(optional)"
+  "or to taste", "to taste", "for frying", "plus more as needed", "as needed", 
 ]
 unitWords = [
   "tablespoon", "tablespoons", "teaspoon", "teaspoons", "cup", "cups", 
@@ -34,13 +35,13 @@ def scrape(urlPath):
 
   # format each ingredient to item
   for item in ingredientSet:
+    if item['data-id'] == "0":
+    	continue
     food = ingredientFormat((item.contents[0]).split())
     ingredientList.append(food)
 
-  #print(ingredientList)
-  result = dict(recipe=title, ingredients=ingredientList, url=urlPath)
-  return(result)
-
+  print(dict(recipe=title, ingredients=ingredientList, url=urlPath))
+  #return dict(recipe=title, ingredients=ingredientList, url=urlPath)
 
 # Returns dictionary item of ingredient with name, amount, and unit
 def ingredientFormat(info):
@@ -73,4 +74,5 @@ tbl = dict.fromkeys(i for i in range(sys.maxunicode) if unicodedata.category(chr
 def remove_punctuation(text):
     return text.translate(tbl)
 
-scrape('http://allrecipes.com/recipe/87163/thai-spiced-barbecue-shrimp')
+if __name__ == '__main__':
+	scrape(sys.argv[1])
