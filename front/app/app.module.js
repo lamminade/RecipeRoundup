@@ -7,5 +7,7 @@
 			'ngRoute',
 
 			// Custom modules
+			'app.landing'
 		]);
+	
 })();
