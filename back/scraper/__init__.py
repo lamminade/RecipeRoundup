@@ -39,7 +39,7 @@ def scrape(urlPath):
 
   #print(ingredientList)
   result = dict(recipe=title, ingredients=ingredientList, url=urlPath)
-  print(result)
+  return(result)
 
 
 # Returns dictionary item of ingredient with name, amount, and unit
