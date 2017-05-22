@@ -7,14 +7,12 @@ def scrape(urlPath):
   # get the html, extract information
   r = requests.get(urlPath)
   soup = BeautifulSoup(r.content, "html.parser")
-  ingredientSet = soup.findAll('span', {'itemprop': "ingredients"})
+  ingredientSet = soup.findAll('li', {'class': "ingredient"})
   title = soup.find('meta', {'property': 'og:title'})['content']
   ingredientList = []
 
   # format each ingredient to item
   for item in ingredientSet:
-    if item['data-id'] == "0":
-    	continue
     food = item.contents[0]
     ingredientList.append(food)
 
