@@ -6,7 +6,7 @@ import unicodedata
 from bs4 import BeautifulSoup
 
 prepWords = [
-  "cubed", "diced", "melted", "deveined", "boned", "peeled",
+  "cubed", "diced", "melted", "deveined", "boned", "peeled", "beaten",
   "washed", "minced", "shredded", "chopped", "mashed", "seeded",
   "drained", "cut into chunks", "sliced", "prepared", "coarsely", "finely",
   "freshly", "crushed", "medium", "large", "small", "rinsed", "undrained", "optional", "(optional)"
@@ -40,8 +40,9 @@ def scrape(urlPath):
     food = ingredientFormat((item.contents[0]).split())
     ingredientList.append(food)
 
-  print(dict(recipe=title, ingredients=ingredientList, url=urlPath))
+  thing = dict(recipe=title, ingredients=ingredientList, url=urlPath)
   #return dict(recipe=title, ingredients=ingredientList, url=urlPath)
+  print(json.dumps(thing))
 
 # Returns dictionary item of ingredient with name, amount, and unit
 def ingredientFormat(info):
