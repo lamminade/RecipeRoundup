@@ -8,7 +8,7 @@ var server = http.createServer(function(req, res) {
 		var recipeUrl = link["query"]["url"];
 		console.log("Scraping " + recipeUrl);
 		var child = require("child_process");
-		var scraper = child.spawn("python3", ["./scraper/allrecipes.py", recipeUrl]);
+		var scraper = child.spawn("python3", ["./scraper/allRecipes.py", recipeUrl]);
 		var scraped = "";
 		scraper.stdout.on("data", function(data) {
 			scraped = scraped + data.toString();
